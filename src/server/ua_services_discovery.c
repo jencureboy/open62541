@@ -283,6 +283,11 @@ Service_GetEndpoints(UA_Server *server, UA_Session *session,
             retval = UA_String_copy(endpointUrl, &response->endpoints[k].endpointUrl);
             if(retval != UA_STATUSCODE_GOOD)
                 goto error;
+            response->endpoints[k].server.discoveryUrlsSize = 1;
+            response->endpoints[k].server.discoveryUrls = (UA_String*)UA_String_new();
+            retval = UA_String_copy(endpointUrl, response->endpoints[k].server.discoveryUrls);
+            if(retval != UA_STATUSCODE_GOOD)
+                goto error;
             ++k;
         }
     }
